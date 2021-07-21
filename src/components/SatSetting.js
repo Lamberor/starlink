@@ -3,6 +3,15 @@ import { Form, InputNumber, Button } from 'antd';
 
 class SatSettingForm extends Component {
 
+  showSatellite = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        this.props.onShow(values);
+      }
+    });
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -27,6 +36,7 @@ class SatSettingForm extends Component {
                   message: 'Please input your Longitude',
                 }
               ],
+              initialValue: 70
             })(<InputNumber placeholder="Please input Longitude"
               min={-180} max={180}
               style={{ width: "100%" }}
@@ -43,6 +53,7 @@ class SatSettingForm extends Component {
                   message: "Please input your Latitude",
                 }
               ],
+              initialValue: -40
             })(<InputNumber placeholder="Please input Latitude"
               min={-90} max={90}
               style={{ width: "100%" }}
@@ -59,6 +70,7 @@ class SatSettingForm extends Component {
                   message: "Please input your Elevation",
                 }
               ],
+              initialValue: 100
             })(<InputNumber placeholder="Please input Elevation"
               min={-413} max={8850}
               style={{ width: "100%" }}
@@ -75,6 +87,7 @@ class SatSettingForm extends Component {
                   message: "Please input your Altitude",
                 }
               ],
+              initialValue: 90
             })(<InputNumber placeholder="Please input Altitude"
               min={0} max={90}
               style={{ width: "100%" }}
@@ -91,6 +104,7 @@ class SatSettingForm extends Component {
                   message: "Please input your Duration",
                 }
               ],
+              initialValue: 10
             })(<InputNumber placeholder="Please input Duration" min={0} max={90} style={{ width: "100%" }} />)
           }
         </Form.Item>
@@ -102,15 +116,6 @@ class SatSettingForm extends Component {
         </Form.Item>
       </Form>
     );
-  }
-
-  showSatellite = (e) => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        this.props.onShow(values);
-      }
-    });
   }
 }
 
