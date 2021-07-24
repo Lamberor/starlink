@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import SatSetting from './SatSetting';
 import SatelliteList from './SatelliteList';
+import WorldMap from './WorldMap';
 
 import { SAT_API_KEY, STARLINK_CATEGORY, NEARBY_SATELLITE } from '../constants';
 
@@ -13,16 +14,20 @@ class Main extends Component {
     this.state = {
       settings: null,
       satInfo: null,
-      isLoadingList: false
+      isLoadingList: false,
     };
   }
 
-  showNearbySatellite = setting => {
+  showMap = (list) => {
+    console.log(list);
+  };
+
+  showNearbySatellite = (setting) => {
     this.setState({ settings: setting });
     this.fetchSatellite(setting);
-  }
+  };
 
-  fetchSatellite = setting => {
+  fetchSatellite = (setting) => {
     // step1: abstract api paras from the setting
     const { latitude, longitude, elevation, altitude } = setting;
     // step2: send request to fetch data
@@ -30,22 +35,22 @@ class Main extends Component {
     // step3: add spin
     this.setState({ isLoadingList: true });
 
-    axios.get(url)
-      .then(response => {
+    axios
+      .get(url)
+      .then((response) => {
         console.log(response);
         // step4: remove spin
-        this.setState(
-          {
-            satInfo: response.data,
-            isLoadingList: false
-          });
+        this.setState({
+          satInfo: response.data,
+          isLoadingList: false,
+        });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log('err in fetch satellite -> ', error);
         // step4: remove spin
         this.setState({ isLoadingList: false });
-      })
-  }
+      });
+  };
 
   render() {
     const { satInfo, isLoadingList } = this.state;
@@ -53,10 +58,14 @@ class Main extends Component {
       <Row className='main'>
         <Col span={8} className='left-side'>
           <SatSetting onShow={this.showNearbySatellite} />
-          <SatelliteList satInfo={satInfo} isLoad={isLoadingList} />
+          <SatelliteList
+            satInfo={satInfo}
+            isLoad={isLoadingList}
+            onShowMap={this.showMap}
+          />
         </Col>
         <Col span={16} className='right-side'>
-          right
+          <WorldMap />
         </Col>
       </Row>
     );
