@@ -1,1 +1,1 @@
-https://starlink-lamberor.netlify.app/api  https://api.n2yo.com  200
+https://starlink-lamberor.netlify.app/api/*  https://api.n2yo.com/:splat  200
