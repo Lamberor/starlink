@@ -12,18 +12,22 @@ class Main extends Component {
   constructor() {
     super();
     this.state = {
-      settings: null,
+      setting: null,
       satInfo: null,
+      satList: null,
       isLoadingList: false,
     };
   }
 
-  showMap = (list) => {
-    console.log(list);
+  showMap = (selected) => {
+    this.setState((preState) => ({
+      ...preState,
+      satList: [...selected],
+    }));
   };
 
   showNearbySatellite = (setting) => {
-    this.setState({ settings: setting });
+    this.setState({ isLoadingList: true, setting: setting });
     this.fetchSatellite(setting);
   };
 
@@ -53,7 +57,7 @@ class Main extends Component {
   };
 
   render() {
-    const { satInfo, isLoadingList } = this.state;
+    const { satInfo, satList, setting, isLoadingList } = this.state;
     return (
       <Row className='main'>
         <Col span={8} className='left-side'>
@@ -65,7 +69,7 @@ class Main extends Component {
           />
         </Col>
         <Col span={16} className='right-side'>
-          <WorldMap />
+          <WorldMap satData={satList} observerData={setting} />
         </Col>
       </Row>
     );
