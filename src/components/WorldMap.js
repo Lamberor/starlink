@@ -60,7 +60,7 @@ class WorldMap extends Component {
       // -> Configurations -> url
       const urls = this.props.satData.map((sat) => {
         const { satid } = sat;
-        const url = `https://api.n2yo.com/${SATELLITE_POSITION_URL}/${satid}/${latitude}/${longitude}/${elevation}/${endTime}/&apiKey=${SAT_API_KEY}`;
+        const url = `/api/${SATELLITE_POSITION_URL}/${satid}/${latitude}/${longitude}/${elevation}/${endTime}/&apiKey=${SAT_API_KEY}`;
         return axios.get(url);
       });
 

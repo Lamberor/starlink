@@ -35,7 +35,7 @@ class Main extends Component {
     // step1: abstract api paras from the setting
     const { latitude, longitude, elevation, altitude } = setting;
     // step2: send request to fetch data
-    const url = `https://api.n2yo.com/${NEARBY_SATELLITE}/${latitude}/${longitude}/${elevation}/${altitude}/${STARLINK_CATEGORY}/&apiKey=${SAT_API_KEY}`;
+    const url = `/api/${NEARBY_SATELLITE}/${latitude}/${longitude}/${elevation}/${altitude}/${STARLINK_CATEGORY}/&apiKey=${SAT_API_KEY}`;
     // step3: add spin
     this.setState({ isLoadingList: true });
 
